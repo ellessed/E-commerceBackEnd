@@ -15,14 +15,18 @@ Category.hasMany(Product, {
 });
 // Products belongToMany Tags (through ProductTag)
 // third table is defined to store foreign keys
-//
+
 Product.belongsToMany(Tag, {
-  through: {
-    model: ProductTag,
-    unique: false,
-  },
-  as: "product_tag",
+  through: ProductTag,
+  foreignKey: "product_id",
 });
+
+// Tags belongToMany Products (through ProductTag)
+Tag.belongsToMany(Product, {
+  through: ProductTag,
+  foreignKey: "tag_id",
+});
+
 // Tags belongToMany Products (through ProductTag)
 //store foreignkeys
 Tag.belongsToMany(Product, {
